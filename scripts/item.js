@@ -4,7 +4,7 @@ function Item() {
 	this.vel = createVector(0, 1);
 
   this.update = function() {
-    this.pos.y += this.vel.y
+    this.pos.add(this.vel);
     fill(color(0, 255, 255));
     rect(this.pos.x, this.pos.y, this.s, this.s);
   };

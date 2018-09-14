@@ -5,8 +5,7 @@ function BlackHole() {
 
 	
 	this.update = function() {
-		this.pos.x += this.vel.x;
-		this.pos.y += this.vel.y;
+		this.pos.add(this.vel);
 		this.s += 0.5;
 		fill(color(14, 14, 14));
 		ellipse(this.pos.x, this.pos.y, this.s, this.s);
