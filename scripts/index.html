@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+
+<canvas id="canvas" width="1024" height="512" ></canvas>
+
+<script>
+
+const CANVAS = document.getElementById("canvas");
+const C		 = CANVAS.getContext("2d");
+const SCREEN_WIDTH = CANVAS.width;
+const SCREEN_HEIGHT = CANVAS.height;
+
+
+function clearScreen(){
+	C.fillStyle = "pink";
+	C.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+}
+
+
+clearScreen();
+
+
+
+</script>
+
+
+</html>
