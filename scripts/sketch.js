@@ -7,6 +7,7 @@ var items = []; // test items
 var canvas;
 var COL; // game background
 var deltaTime; // time between frames
+var score;
 
 function clear2(col) {
   // homemade clear screen
@@ -21,6 +22,7 @@ function setup() {
   canvas = createCanvas(WIDTH, HEIGTH);
   background(color(COL));
   hole = new BlackHole();
+  score = new Score();
 
   for (let i = 0; i < MAXITEMS; i++)
     items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
@@ -47,4 +49,6 @@ function draw() {
 	
 
   for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
+  
+  if(items.length < 1) hole.targetSize = 20;
 }
