@@ -8,6 +8,7 @@ var canvas;
 var COL; // game background
 var deltaTime; // time between frames
 var score;
+var level;
 
 //var images = [];
 
@@ -26,6 +27,7 @@ function setup() {
   background(color(COL));
   hole = new BlackHole();
   score = new Score();
+  level = 1;
   
   //images[0] = loadImage("https://art.pixilart.com/2d860785d0d81ee.png");
   //images[1] = loadImage("../Assets/girl2.png");
@@ -42,10 +44,11 @@ function setup() {
 function newLevel(){
 	for (let i = 0; i < MAXITEMS; i++){
 		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGHT + 0));
-		items[i].escapeLevel += 0.07;
+		items[i].escapeLevel +=  level * 0.07;
 	}
+	level++;
 	score.level++;
-	hole.targetSize = 50; // make a cool spring animation in the beginning
+	hole.targetSize = 80; // make a cool spring animation in the beginning
 	
 	
 }
