@@ -24,7 +24,7 @@ function setup() {
 	
 	for(let i = 0; i < MAXITEMS; i++)
 		items.push(new Item((Math.random()*(W)+ (0)), (Math.random()*(H)+ (0))));
-	hole.grow(50);			// make a cool spring animation in the beginning
+	//hole.grow(200);			// make a cool spring animation in the beginning
 }
 
 
@@ -34,8 +34,17 @@ function draw() {
 	clear2(COL);
 	hole.update(deltaTime);
 	
-	for(let i = 0; i < MAXITEMS; i++)
+	for(let i = items.length-1; i >= 0; i--){
+		if (items[i].eaten){
+			items.splice(i, 1);	
+			
+		}
+	}
+	
+	for(let i in items)
 		items[i].update(deltaTime);
+	
+	
 }
 
 

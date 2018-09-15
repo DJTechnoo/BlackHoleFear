@@ -3,6 +3,7 @@ function Item(x, y) {
 	this.pos = createVector(x, y);
 	this.circlePos = createVector( this.pos.x + this.s/2.0, this.pos.y + this.s/2.0);
 	this.vel = createVector(0, 0);
+	this.eaten = false;
 	
 
   this.update = function(dt) {
@@ -32,6 +33,14 @@ function Item(x, y) {
 			
 			
 	}*/
+	
+	if(((hole.pos.x - this.circlePos.x)*(hole.pos.x - this.circlePos.x) + 
+		(this.circlePos.y-hole.pos.y)*(this.circlePos.y-hole.pos.y)) <=
+		((hole.s/2 + this.s)*(hole.s/2 + this.s))){
+		
+		this.eaten = true;
+	
+	}
 	
 	
 	
