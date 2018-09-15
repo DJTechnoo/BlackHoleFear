@@ -26,7 +26,12 @@ function Item(x, y) {
       this.vel.add(p5.Vector.sub(this.pos, hole.pos));
       this.vel.mult(this.escapeLevel);
 
-      if (
+	  if(controller.boost){
+		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
+			this.vel.mult(1.5);
+	  }
+	  
+      else if (
         (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
           (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
         (hole.targetSize + this.size) * (hole.targetSize + this.size)
