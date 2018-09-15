@@ -7,6 +7,7 @@ function Item(x, y) {
     this.pos.y + this.size / 2.0
   );
   this.vel = createVector(0, 0);
+  this.escapeLevel = 0.1;
 
 
   this.update = function(dt) {
@@ -24,22 +25,24 @@ function Item(x, y) {
       (hole.size*1.1 + this.size) * (hole.size*1.1 + this.size)) {
 		
 			this.vel.add(p5.Vector.sub(this.pos, hole.pos));
-			this.vel.mult(0.1);
+			this.vel.mult(this.escapeLevel);
 			
+		if (
+		  (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
+			(this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
+		  (hole.targetSize + this.size)*(hole.targetSize + this.size)
+		) {
+		  fill(color("black"));
+		  ellipse(this.circlePos.x, this.circlePos.y, this.size * 2, this.size * 2);
+		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
+		  this.vel.mult(0.5);
+		  
+		  
+		} 
 			
 	}
-    if (
-      (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
-        (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-      (hole.targetSize + this.size)*(hole.targetSize + this.size)
-    ) {
-      fill(color("black"));
-      ellipse(this.circlePos.x, this.circlePos.y, this.size * 2, this.size * 2);
-      this.vel.add(p5.Vector.sub(hole.pos, this.pos));
-      this.vel.mult(0.5);
-	  
-	  
-    } 
+
+    
 	
 	// if eaten
 	if(((hole.pos.x - this.circlePos.x)*(hole.pos.x - this.circlePos.x) + 

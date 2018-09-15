@@ -32,10 +32,21 @@ function setup() {
   //images[2] = loadImage("../Assets/girl1.png");
 
 
-  for (let i = 0; i < MAXITEMS; i++)
-    items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
-  hole.grow(50); // make a cool spring animation in the beginning
+	for (let i = 0; i < MAXITEMS; i++)
+		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
+	hole.targetSize = 100; // make a cool spring animation in the beginning
 
+}
+
+
+function newLevel(){
+	for (let i = 0; i < MAXITEMS; i++){
+		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
+		items[i].escapeLevel += 0.07;
+	}
+	hole.targetSize = 50; // make a cool spring animation in the beginning
+	
+	
 }
 
 function draw() {
@@ -60,7 +71,9 @@ function draw() {
   for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
   
   
-  if(items.length < 1) hole.targetSize = 20;
+  if(items.length < 1){
+	  newLevel();
+  }
   
   
   //image(images[0], 40, 40, 10, 10);
