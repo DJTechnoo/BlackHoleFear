@@ -52,7 +52,7 @@ function Item(x, y) {
 		this.eaten = true;
 		hole.grow(8* this.size/10 * dt);
 		score.addScore(this.size);
-		score.display();
+		
 		
 	
 	}
@@ -70,8 +70,8 @@ function Item(x, y) {
       this.pos.y = 0;
       this.vel.y *= -1;
     }
-    if (this.pos.y + this.size > HEIGTH) {
-      this.pos.y = HEIGTH - this.size;
+    if (this.pos.y + this.size > HEIGHT) {
+      this.pos.y = HEIGHT - this.size;
       this.vel.y *= -1;
     }
 

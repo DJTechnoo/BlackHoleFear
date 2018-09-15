@@ -1,4 +1,4 @@
-const HEIGTH = 512;
+const HEIGHT = 512;
 const WIDTH = 1024;
 const MAXITEMS = 500;
 
@@ -15,14 +15,14 @@ var score;
 function clear2(col) {
   // homemade clear screen
   fill(color(col));
-  rect(0, 0, WIDTH, HEIGTH);
+  rect(0, 0, WIDTH, HEIGHT);
 }
 
 function setup() {
 
   //pixelDensity(1);
   COL = color(255, 200, 150, 100);
-  canvas = createCanvas(WIDTH, HEIGTH);
+  canvas = createCanvas(WIDTH, HEIGHT);
   background(color(COL));
   hole = new BlackHole();
   score = new Score();
@@ -33,7 +33,7 @@ function setup() {
 
 
 	for (let i = 0; i < MAXITEMS; i++)
-		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
+		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGHT + 0));
 	hole.targetSize = 100; // make a cool spring animation in the beginning
 
 }
@@ -41,9 +41,10 @@ function setup() {
 
 function newLevel(){
 	for (let i = 0; i < MAXITEMS; i++){
-		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
+		items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGHT + 0));
 		items[i].escapeLevel += 0.07;
 	}
+	score.level++;
 	hole.targetSize = 50; // make a cool spring animation in the beginning
 	
 	
@@ -75,6 +76,7 @@ function draw() {
 	  newLevel();
   }
   
+	score.display();
   
   //image(images[0], 40, 40, 10, 10);
 }
