@@ -73,6 +73,15 @@ function BlackHole() {
     this.accelRate = 5 - 0.025 * this.size;
     this.accelRate = constrain(this.accelRate, 1, 5);
 
+    // Continously shrink the hole proportionally to its size (smaller = faster)
+    this.targetSize -= ((100 * Math.E) / this.targetSize) * dt;
+    if (this.targetSize <= 4) {
+      this.targetSize = 0;
+      console.log("Game Over");
+    }
+
+    this.accelRate = 5 - 0.025 * this.size;
+    this.accelRate = constrain(this.accelRate, 1, 5);
     fill(color(14, 14, 14));
     ellipse(this.pos.x, this.pos.y, this.size);
   };
