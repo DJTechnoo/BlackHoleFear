@@ -80,8 +80,6 @@ function BlackHole() {
       console.log("Game Over");
     }
 
-    this.accelRate = 5 - 0.025 * this.size;
-    this.accelRate = constrain(this.accelRate, 1, 5);
     fill(color(14, 14, 14));
     ellipse(this.pos.x, this.pos.y, this.size);
   };
