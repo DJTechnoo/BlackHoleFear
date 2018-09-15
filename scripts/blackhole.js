@@ -42,6 +42,8 @@ function BlackHole() {
 
     // Add & Constrain min-max values
     this.pos.add(this.vel);
+	
+	/*
     var min = this.s / 2;
     var maxX = W - min;
     var maxY = H - min;
@@ -53,7 +55,25 @@ function BlackHole() {
     if (this.pos.y < min || this.pos.y > maxY) {
       this.vel.y = 0;
       this.pos.y = constrain(this.pos.y, min, maxY);
-    }
+    }*/
+	
+	
+	if(this.pos.x < 0) {this.pos.x = 0; this.vel.x = 0;}
+	if(this.pos.x + this.s > W) { this.pos.x = W - this.s; this.vel.x = 0;}
+	if(this.pos.y < 0) {this.pos.y = 0; this.vel.y = 0;}
+	if(this.pos.y + this.s > H) { this.pos.y = H - this.s; this.vel.y = 0;}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     fill(color(14, 14, 14));
     ellipse(this.pos.x, this.pos.y, this.s, this.s);

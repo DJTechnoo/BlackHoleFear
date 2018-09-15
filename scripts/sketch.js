@@ -24,7 +24,7 @@ function setup() {
 	
 	for(let i = 0; i < MAXITEMS; i++)
 		items.push(new Item((Math.random()*(W)+ (0)), (Math.random()*(H)+ (0))));
-	//hole.grow(200);			// make a cool spring animation in the beginning
+	hole.grow(200);			// make a cool spring animation in the beginning
 }
 
 
