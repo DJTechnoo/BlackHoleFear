@@ -48,7 +48,7 @@ function BlackHole() {
 
     // Add & Constrain min-max values
     this.pos.add(this.vel);
-    var min = this.size / 2;
+    var min = this.size / 2 + 1.8;
     var maxX = WIDTH - min;
     var maxY = HEIGTH - min;
 
