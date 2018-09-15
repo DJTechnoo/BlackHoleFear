@@ -2,7 +2,7 @@ const H = 512;
 const W = 1024;
 
 var hole;		// player
-var item;		// test item
+var items = [];		// test items
 var canvas;		
 var COL;		// game background
 var deltaTime	// time between frames
@@ -20,7 +20,9 @@ function setup() {
 	canvas = createCanvas(W, H);
 	background(color(COL));
 	hole = new BlackHole();
-	item = new Item();
+	
+	for(let i = 0; i < 3; i++)
+		items.push(new Item((Math.random()*(W/4)+ (W/2)), (Math.random()*(H/4)+ (H/2))));
 	hole.grow(50);			// make a cool spring animation in the beginning
 }
 
@@ -30,7 +32,9 @@ function draw() {
 	deltaTime = (window.performance.now() - canvas._pInst._lastFrameTime)/1000;
 	clear2(COL);
 	hole.update(deltaTime);
-	item.update(deltaTime);
+	
+	for(let i = 0; i < 3; i++)
+		items[i].update(deltaTime);
 }
 
 

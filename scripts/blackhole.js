@@ -40,7 +40,7 @@ function BlackHole() {
 	
 	this.update = function(dt) {
 		
-		console.log(item.pos.x);
+		
 		this.control(dt);
 		this.growSpring();
 		

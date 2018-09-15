@@ -1,6 +1,6 @@
-function Item() {
+function Item(x, y) {
 	this.s = 10;		// size
-	this.pos = createVector(400, 400);
+	this.pos = createVector(x, y);
 	this.circlePos = createVector( this.pos.x + this.s/2.0, this.pos.y + this.s/2.0);
 	this.vel = createVector(20, 1);
 	
@@ -22,9 +22,16 @@ function Item() {
 			
 			fill(color("black"));
 			ellipse(this.circlePos.x, this.circlePos.y, this.s*2, this.s*2);
-			this.vel.add(p5.Vector.sub(this.pos, hole.pos));
+			this.vel.add(p5.Vector.sub(hole.pos,this.pos));
+			//this.vel.mult(0.3);
 			
-		}
+	} else{
+		
+		this.vel.add(p5.Vector.sub(this.pos, hole.pos));
+		this.vel.mult(0.03);
+			
+			
+	}
     fill(color(0, 255, 255));
     rect(this.pos.x, this.pos.y, this.s, this.s);
   };
