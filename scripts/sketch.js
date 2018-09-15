@@ -1,4 +1,4 @@
-const HEIGTH = 512;
+const HEIGHT = 512;
 const WIDTH = 1024;
 const MAXITEMS = 500;
 
@@ -22,20 +22,18 @@ function clear2(col) {
 function setup() {
   //pixelDensity(1);
   frameRate(60);
-  level = 0;
   COL = color(255, 200, 150, 100);
-  canvas = createCanvas(WIDTH, HEIGTH);
+  canvas = createCanvas(WIDTH, HEIGHT);
   background(color(COL));
   hole = new BlackHole();
   score = new Score();
+  level = 0;
 
   //images[0] = loadImage("https://art.pixilart.com/2d860785d0d81ee.png");
   //images[1] = loadImage("../Assets/girl2.png");
   //images[2] = loadImage("../Assets/girl1.png");
 
-  for (let i = 0; i < MAXITEMS; i++)
-    items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
-  hole.targetSize = 100; // make a cool spring animation in the beginning
+  newLevel();
 }
 
 function newLevel() {
@@ -62,9 +60,11 @@ function draw() {
 
   for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
 
-  if (items.length < 1) {
+  if (items.length < 1 && !score.gameOver) {
     newLevel();
   }
+
+  score.display();
 
   //image(images[0], 40, 40, 10, 10);
 }

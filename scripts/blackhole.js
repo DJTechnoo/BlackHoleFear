@@ -1,5 +1,5 @@
 function BlackHole() {
-  this.pos = createVector(WIDTH / 2, HEIGTH / 2);
+  this.pos = createVector(WIDTH / 2, HEIGHT / 2);
   this.vel = createVector(0, 0);
   this.accel = createVector(0, 0);
   this.accelRate = 2.5;
@@ -53,7 +53,7 @@ function BlackHole() {
 
     var min = this.size / 2 + 1.8;
     var maxX = WIDTH - min;
-    var maxY = HEIGTH - min;
+    var maxY = HEIGHT - min;
 
     if (this.pos.x < min || this.pos.x > maxX) {
       this.vel.x = 0;
@@ -69,6 +69,7 @@ function BlackHole() {
     if (this.targetSize <= 4) {
       this.targetSize = 0;
       console.log("Game Over");
+	  score.gameOver = true;
     }
 
     // Adjust acceleration/handling proportionally to size (bigger = slower)
