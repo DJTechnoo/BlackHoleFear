@@ -4,8 +4,8 @@ function BlackHole() {
   this.pos = createVector(WIDTH / 2, HEIGTH / 2);
   this.vel = createVector(0, 0);
   this.accel = createVector(0, 0);
-  this.accelRate = 0.3;
-  this.size = 3.0;
+  this.accelRate = 2.5;
+  this.size = 25;
 
   // for spring physics
   this.targetSize = this.size;
@@ -53,7 +53,6 @@ function BlackHole() {
     var maxX = WIDTH - min;
     var maxY = HEIGTH - min;
 
-
     if (this.pos.x < min || this.pos.x > maxX) {
       this.vel.x = 0;
       this.pos.x = constrain(this.pos.x, min, maxX);
@@ -62,9 +61,15 @@ function BlackHole() {
       this.vel.y = 0;
       this.pos.y = constrain(this.pos.y, min, maxY);
     }
-	
 
-
+    // Continously shrink the hole proportionally to its size (smaller = faster)
+    this.targetSize -= ((100 * Math.E) / this.targetSize) * dt;
+    if (this.targetSize <= 4) {
+      this.targetSize = 0;
+      console.log("Game Over");
+    }
+    this.accelRate = 5 - 0.025 * this.size;
+    this.accelRate = constrain(this.accelRate, 1, 5);
     fill(color(14, 14, 14));
     ellipse(this.pos.x, this.pos.y, this.size);
   };
