@@ -9,6 +9,8 @@ var COL; // game background
 var deltaTime; // time between frames
 var score;
 
+//var images = [];
+
 
 function clear2(col) {
   // homemade clear screen
@@ -24,6 +26,10 @@ function setup() {
   background(color(COL));
   hole = new BlackHole();
   score = new Score();
+  
+  //images[0] = loadImage("https://art.pixilart.com/2d860785d0d81ee.png");
+  //images[1] = loadImage("../Assets/girl2.png");
+  //images[2] = loadImage("../Assets/girl1.png");
 
 
   for (let i = 0; i < MAXITEMS; i++)
@@ -53,5 +59,9 @@ function draw() {
 
   for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
   
+  
   if(items.length < 1) hole.targetSize = 20;
+  
+  
+  //image(images[0], 40, 40, 10, 10);
 }
