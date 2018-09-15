@@ -72,7 +72,7 @@ function draw() {
   for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
   
   
-  if(items.length < 1){
+  if(items.length < 1 && !score.gameOver){
 	  newLevel();
   }
   

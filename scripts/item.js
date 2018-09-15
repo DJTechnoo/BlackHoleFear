@@ -51,7 +51,7 @@ function Item(x, y) {
 		
 		this.eaten = true;
 		hole.grow(8* this.size/10 * dt);
-		score.addScore(this.size);
+		if(!score.gameOver)score.addScore(this.size);
 		
 		
 	
