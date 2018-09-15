@@ -3,7 +3,7 @@ function Score(){
 	this.score = 0;
 	
 	this.addScore = function(m){
-		this.score += 100 * m/10.0;
+		this.score += floor(100 * m/10.0);
 		
 	}
 	

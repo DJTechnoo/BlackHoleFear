@@ -1,6 +1,6 @@
 function Item(x, y) {
 
-  this.size = Math.random() *10 + 2;
+  this.size = Math.random() *15 + 2;
   this.pos = createVector(x, y);
   this.circlePos = createVector(
     this.pos.x + this.size / 2.0,
@@ -47,7 +47,7 @@ function Item(x, y) {
 		((hole.targetSize/2 + this.size)*(hole.targetSize/2 + this.size))){
 		
 		this.eaten = true;
-		hole.grow(8* dt);
+		hole.grow(8* this.size/10 * dt);
 		score.addScore(this.size);
 		score.display();
 		
