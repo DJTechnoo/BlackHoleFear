@@ -16,7 +16,7 @@ function clear2(col) {
   // homemade clear screen
   strokeWeight(1);
   fill(color(col));
-  rect(0, 0, WIDTH - 1, HEIGTH - 1);
+  rect(0, 0, WIDTH - 1, HEIGHT - 1);
 }
 
 function setup() {
@@ -27,7 +27,6 @@ function setup() {
   background(color(COL));
   hole = new BlackHole();
   score = new Score();
-  level = 0;
 
   //images[0] = loadImage("https://art.pixilart.com/2d860785d0d81ee.png");
   //images[1] = loadImage("../Assets/girl2.png");
@@ -37,12 +36,12 @@ function setup() {
 }
 
 function newLevel() {
-  level++;
+  score.level++;
   for (let i = 0; i < MAXITEMS; i++) {
-    items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGTH + 0));
-    items[i].escapeLevel += level / 10;
+    items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGHT + 0));
+    items[i].escapeLevel += score.level / 10;
   }
-  hole.targetSize = 100 - level; // make a cool spring animation in the beginning
+  hole.targetSize = 100 - score.level; // make a cool spring animation in the beginning
 }
 
 function draw() {
