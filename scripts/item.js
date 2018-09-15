@@ -2,7 +2,7 @@ function Item(x, y) {
 	this.s = 10;		// size
 	this.pos = createVector(x, y);
 	this.circlePos = createVector( this.pos.x + this.s/2.0, this.pos.y + this.s/2.0);
-	this.vel = createVector(20, 1);
+	this.vel = createVector(0, 0);
 	
 
   this.update = function(dt) {
@@ -23,15 +23,29 @@ function Item(x, y) {
 			fill(color("black"));
 			ellipse(this.circlePos.x, this.circlePos.y, this.s*2, this.s*2);
 			this.vel.add(p5.Vector.sub(hole.pos,this.pos));
-			//this.vel.mult(0.3);
+			this.vel.mult(0.3);
 			
-	} else{
+	} /*else{
 		
 		this.vel.add(p5.Vector.sub(this.pos, hole.pos));
 		this.vel.mult(0.03);
 			
 			
-	}
+	}*/
+	
+	
+	
+	if(this.pos.x < 0) {this.pos.x = 0; this.vel.x *= -1;}
+	if(this.pos.x + this.s > W){ this.pos.x = W-this.s; this.vel.x *= -1;}
+	if(this.pos.y < 0) {this.pos.y = 0; this.vel.y *= -1;}
+	if(this.pos.y + this.s > H) {this.pos.y = H-this.s; this.vel.y *= -1;}
+	
+	
+	
+	
+	
+	
+	
     fill(color(0, 255, 255));
     rect(this.pos.x, this.pos.y, this.s, this.s);
   };

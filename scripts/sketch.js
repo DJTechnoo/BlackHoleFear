@@ -1,5 +1,6 @@
 const H = 512;
 const W = 1024;
+const MAXITEMS =500;
 
 var hole;		// player
 var items = [];		// test items
@@ -21,8 +22,8 @@ function setup() {
 	background(color(COL));
 	hole = new BlackHole();
 	
-	for(let i = 0; i < 3; i++)
-		items.push(new Item((Math.random()*(W/4)+ (W/2)), (Math.random()*(H/4)+ (H/2))));
+	for(let i = 0; i < MAXITEMS; i++)
+		items.push(new Item((Math.random()*(W)+ (0)), (Math.random()*(H)+ (0))));
 	hole.grow(50);			// make a cool spring animation in the beginning
 }
 
@@ -33,7 +34,7 @@ function draw() {
 	clear2(COL);
 	hole.update(deltaTime);
 	
-	for(let i = 0; i < 3; i++)
+	for(let i = 0; i < MAXITEMS; i++)
 		items[i].update(deltaTime);
 }
 
