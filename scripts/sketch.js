@@ -39,7 +39,7 @@ function newLevel() {
   score.level++;
   for (let i = 0; i < MAXITEMS; i++) {
     items.push(new Item(Math.random() * WIDTH + 0, Math.random() * HEIGHT + 0));
-    items[i].escapeLevel += score.level / 15;
+    items[i].escapeForce += score.level / 15;
   }
   hole.targetSize = 100 - score.level; // make a cool spring animation in the beginning
 }
@@ -57,7 +57,7 @@ function draw() {
 
   for (let i in items) items[i].update(deltaTime);
 
-  for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
+  //for (let i = 0; i < items.length; i++) items[i].update(deltaTime);
 
   if (items.length < 1 && !score.gameOver) {
     newLevel();

@@ -6,7 +6,8 @@ function Item(x, y) {
     this.pos.y + this.size / 2.0
   );
   this.vel = createVector(0, 0);
-  this.escapeLevel = 0.1;
+  this.accel = createVector(0, 0);
+  this.escapeForce = 25.0;
 
   this.update = function(dt) {
     this.pos.x += this.vel.x * dt;
@@ -18,44 +19,34 @@ function Item(x, y) {
     //(x2-x1)^2 + (y1-y2)^2 <= (r1+r2)^2
     //
 
-    if (
-      (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
-        (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-      (hole.size * 1.1 + this.size) * (hole.size * 1.1 + this.size)
-    ) {
-      this.vel.add(p5.Vector.sub(this.pos, hole.pos));
-      this.vel.mult(this.escapeLevel);
+    if (this.inProximity(this.size + hole.size)) {
+      fill(color("black"));
+      ellipse(this.circlePos.x, this.circlePos.y, this.size * 2);
 
-	  if(controller.boost){
-		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
-			this.vel.mult(1.5);
-	  }
-	  
-      else if (
-        (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
-          (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-        (hole.targetSize + this.size) * (hole.targetSize + this.size)
-      ) {
-        fill(color("black"));
-        ellipse(
-          this.circlePos.x,
-          this.circlePos.y,
-          this.size * 2,
-          this.size * 2
-        );
-        this.vel.add(p5.Vector.sub(hole.pos, this.pos));
-        this.vel.mult(0.5);
-      }
+      var dir = p5.Vector.sub(this.pos, hole.pos).normalize();
+      var boostMod = controller.boost ? 0.25 : 1;
+      var forceMod = ((hole.size / 15) * this.pos.dist(hole.pos)) / 15;
+      this.accel = p5.Vector.mult(dir, this.escapeForce * boostMod - forceMod);
+      this.accel = this.accel.limit(200);
+    } else if (this.inProximity(this.size * 2 + hole.size * 2)) {
+      var dir = p5.Vector.sub(this.pos, hole.pos).normalize();
+      var boostMod = controller.boost ? 0.25 : 1;
+      this.accel = p5.Vector.mult(dir, this.escapeForce * boostMod);
+      this.accel = this.accel.limit(100 + 5 * score.level);
+    } else {
+      this.accel.mult(0);
     }
 
+    this.vel.add(this.accel);
+    this.vel = this.vel.limit(100 + 5 * score.level);
+
     // if eaten
-    if (
-      (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
+    if (this.inProximity(hole.size / 2 + this.size)) {
+      /* (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
         (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-      (hole.targetSize / 2 + this.size) * (hole.targetSize / 2 + this.size)
-    ) {
+      (hole.targetSize / 2 + this.size) * (hole.targetSize / 2 + this.size)*/
       this.eaten = true;
-      hole.grow(((8 * this.size) / 10) * dt);
+      hole.grow(Math.sqrt(this.size / 100));
       if (!score.gameOver) score.addScore(Math.sqrt(this.size));
     }
 
@@ -78,5 +69,9 @@ function Item(x, y) {
 
     fill(color(0, 255, 255));
     rect(this.pos.x, this.pos.y, this.size, this.size);
+  };
+
+  this.inProximity = function(tDist) {
+    return this.pos.dist(hole.pos) <= tDist;
   };
 }
