@@ -68,7 +68,7 @@ function BlackHole() {
     this.targetSize -= ((75 * Math.E) / this.targetSize) * dt;
     if (this.targetSize <= 4) {
       this.targetSize = 0;
-      console.log("Game Over");
+
 	  score.gameOver = true;
     }
 

@@ -7,7 +7,7 @@ function Item(x, y) {
   );
   this.vel = createVector(0, 0);
   this.accel = createVector(0, 0);
-  this.escapeForce = 25.0;
+  this.escapeForce = 50.0;
 
   this.update = function(dt) {
     this.pos.x += this.vel.x * dt;
@@ -25,20 +25,20 @@ function Item(x, y) {
 
       var dir = p5.Vector.sub(this.pos, hole.pos).normalize();
       var boostMod = controller.boost ? 0.25 : 1;
-      var forceMod = ((hole.size / 15) * this.pos.dist(hole.pos)) / 15;
+      var forceMod = ((hole.size / 20) * this.pos.dist(hole.pos)) / 10;
       this.accel = p5.Vector.mult(dir, this.escapeForce * boostMod - forceMod);
       this.accel = this.accel.limit(200);
     } else if (this.inProximity(this.size * 2 + hole.size * 2)) {
       var dir = p5.Vector.sub(this.pos, hole.pos).normalize();
       var boostMod = controller.boost ? 0.25 : 1;
       this.accel = p5.Vector.mult(dir, this.escapeForce * boostMod);
-      this.accel = this.accel.limit(100 + 5 * score.level);
+      this.accel = this.accel.limit(100 + score.level);
     } else {
       this.accel.mult(0);
     }
 
     this.vel.add(this.accel);
-    this.vel = this.vel.limit(100 + 5 * score.level);
+    this.vel = this.vel.limit(100 + score.level);
 
     // if eaten
     if (this.inProximity(hole.size / 2 + this.size)) {
