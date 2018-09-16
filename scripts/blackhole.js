@@ -69,8 +69,10 @@ function BlackHole() {
     if (this.targetSize <= 4) {
       this.targetSize = 0;
 
-	  score.gameOver = true;
+      score.gameOver = true;
     }
+
+    if (controller.boost) this.grow(-dt);
 
     // Adjust acceleration/handling proportionally to size (bigger = slower)
     this.accelRate = 5 - 0.01 * this.size;

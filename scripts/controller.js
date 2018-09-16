@@ -25,10 +25,11 @@ function keydownHandler(evt) {
       controller.right = state;
       break;
     case 83:
-		controller.down = state; 
-		break;
     case 40:
-		controller.boost = state;
+      controller.down = state;
+      break;
+    case 32:
+      controller.boost = state;
       break;
   }
   evt.preventDefault();
