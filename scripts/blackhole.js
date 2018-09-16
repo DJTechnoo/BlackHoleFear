@@ -72,7 +72,7 @@ function BlackHole() {
       score.gameOver = true;
     }
 
-    if (controller.boost) this.grow(-dt);
+    if (controller.boost && !score.gameOver) this.grow(-dt);
 
     // Adjust acceleration/handling proportionally to size (bigger = slower)
     this.accelRate = 5 - 0.01 * this.size;
