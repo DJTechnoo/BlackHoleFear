@@ -1,5 +1,3 @@
-const MAX_VEL = 2;
-
 function BlackHole() {
   this.pos = createVector(WIDTH / 2, HEIGHT / 2);
   this.vel = createVector(0, 0);
@@ -39,7 +37,11 @@ function BlackHole() {
 
     this.accel.mult(dt);
     this.vel.add(this.accel);
-    this.vel = this.vel.limit(MAX_VEL);
+
+    // Adjust velocity proportionally to size (bigger = slower)
+    var maxVel = 5 - 0.01 * this.size;
+    maxVel = constrain(maxVel, 1, 5);
+    this.vel = this.vel.limit(maxVel);
   };
 
   this.update = function(dt) {
@@ -70,9 +72,8 @@ function BlackHole() {
     }
 
     // Adjust acceleration/handling proportionally to size (bigger = slower)
-    this.accelRate = 5 - 0.025 * this.size;
+    this.accelRate = 5 - 0.01 * this.size;
     this.accelRate = constrain(this.accelRate, 1, 5);
-
 
     fill(color(14, 14, 14));
     ellipse(this.pos.x, this.pos.y, this.size);

@@ -6,6 +6,7 @@ function controller() {
   this.right = false;
   this.up = false;
   this.down = false;
+  this.boost = false;
 }
 
 function keydownHandler(evt) {
@@ -24,8 +25,10 @@ function keydownHandler(evt) {
       controller.right = state;
       break;
     case 83:
+		controller.down = state; 
+		break;
     case 40:
-      controller.down = state;
+		controller.boost = state;
       break;
   }
   evt.preventDefault();

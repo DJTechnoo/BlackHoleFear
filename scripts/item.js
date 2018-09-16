@@ -1,6 +1,5 @@
 function Item(x, y) {
-
-  this.size = Math.random() *15 + 2;
+  this.size = Math.random() * 15 + 2;
   this.pos = createVector(x, y);
   this.circlePos = createVector(
     this.pos.x + this.size / 2.0,
@@ -8,7 +7,6 @@ function Item(x, y) {
   );
   this.vel = createVector(0, 0);
   this.escapeLevel = 0.1;
-
 
   this.update = function(dt) {
     this.pos.x += this.vel.x * dt;
@@ -19,45 +17,48 @@ function Item(x, y) {
     //		The items get scared when black hole is nearby
     //(x2-x1)^2 + (y1-y2)^2 <= (r1+r2)^2
     //
-	
-	if ((hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
+
+    if (
+      (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
         (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-      (hole.size*1.1 + this.size) * (hole.size*1.1 + this.size)) {
-		
-			this.vel.add(p5.Vector.sub(this.pos, hole.pos));
-			this.vel.mult(this.escapeLevel);
-			
-		if (
-		  (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
-			(this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
-		  (hole.targetSize + this.size)*(hole.targetSize + this.size)
-		) {
-		  fill(color("black"));
-		  ellipse(this.circlePos.x, this.circlePos.y, this.size * 2, this.size * 2);
+      (hole.size * 1.1 + this.size) * (hole.size * 1.1 + this.size)
+    ) {
+      this.vel.add(p5.Vector.sub(this.pos, hole.pos));
+      this.vel.mult(this.escapeLevel);
+
+	  if(controller.boost){
 		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
-		  this.vel.mult(0.5);
-		  
-		  
-		} 
-			
-	}
+			this.vel.mult(1.5);
+	  }
+	  
+      else if (
+        (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
+          (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
+        (hole.targetSize + this.size) * (hole.targetSize + this.size)
+      ) {
+        fill(color("black"));
+        ellipse(
+          this.circlePos.x,
+          this.circlePos.y,
+          this.size * 2,
+          this.size * 2
+        );
+        this.vel.add(p5.Vector.sub(hole.pos, this.pos));
+        this.vel.mult(0.5);
+      }
+    }
 
-    
-	
-	// if eaten
-	if(((hole.pos.x - this.circlePos.x)*(hole.pos.x - this.circlePos.x) + 
-		(this.circlePos.y-hole.pos.y)*(this.circlePos.y-hole.pos.y)) <=
-		((hole.targetSize/2 + this.size)*(hole.targetSize/2 + this.size))){
-		
-		this.eaten = true;
-		hole.grow(8* this.size/10 * dt);
-		if(!score.gameOver)score.addScore(this.size);
-		
-		
-	
-	}
+    // if eaten
+    if (
+      (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
+        (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
+      (hole.targetSize / 2 + this.size) * (hole.targetSize / 2 + this.size)
+    ) {
+      this.eaten = true;
+      hole.grow(((8 * this.size) / 10) * dt);
+      if (!score.gameOver) score.addScore(Math.sqrt(this.size));
+    }
 
-	
     if (this.pos.x < 0) {
       this.pos.x = 0;
       this.vel.x *= -1;
