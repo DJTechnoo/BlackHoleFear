@@ -26,12 +26,9 @@ function Item(x, y) {
       this.vel.add(p5.Vector.sub(this.pos, hole.pos));
       this.vel.mult(this.escapeLevel);
 
-	  if(controller.boost){
-		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
-			this.vel.mult(1.5);
-	  }
 	  
-      else if (
+	  
+      if (
         (hole.pos.x - this.circlePos.x) * (hole.pos.x - this.circlePos.x) +
           (this.circlePos.y - hole.pos.y) * (this.circlePos.y - hole.pos.y) <=
         (hole.targetSize + this.size) * (hole.targetSize + this.size)
@@ -46,6 +43,17 @@ function Item(x, y) {
         this.vel.add(p5.Vector.sub(hole.pos, this.pos));
         this.vel.mult(0.5);
       }
+	  
+	  if(controller.boost /*&& (!boostTimer.timeIsUp())*/){
+		  this.vel.add(p5.Vector.sub(hole.pos, this.pos));
+			this.vel.mult(1.5);
+			/*boostTimer.decrease(dt*0.1);
+			fill(0);
+			textSize(24);
+			textStyle(BOLD);
+			text("Timer: " + boostTimer.time, 300, 300);*/
+			
+	  }
     }
 
     // if eaten
