@@ -8,8 +8,8 @@ function BlackHole() {
   // for spring physics
   this.targetSize = this.size;
   this.force = 0;
-  this.strength = 0.01;
-  this.drag = 0.9;
+  this.strength = 0.2;
+  this.drag = 0.92;
   this.growRate = 0;
 
   // grow from this.s to this.targetsize.
